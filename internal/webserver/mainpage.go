@@ -3,27 +3,45 @@ package webserver
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"seats/internal"
 	"seats/internal/types"
 )
 
-func Mainpage(w http.ResponseWriter, r *http.Request) {
-	spensData, err := getSpens()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	jsdata, err := json.Marshal(spensData)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	w.Write(jsdata)
+type User struct {
+	Id      string `json:"id"`
+	Name    string `json:"name"`
+	Company string `json:"company"`
 }
 
-func getSpens() ([]types.Amount, error) {
+func Mainpage(w http.ResponseWriter, r *http.Request) {
+	// setUser(user)
+}
+
+// set user
+func SetUser(w http.ResponseWriter, r *http.Request) {
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var user User
+	err = json.Unmarshal(body, &user)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	db := internal.ConnectDB()
+	insertUser := "INSERT INTO users(id, name, compnay) VALUES(?, ?, ?)"
+	_, err = db.Exec(insertUser, user.Id, user.Name, user.Company)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func setSeats() ([]types.Amount, error) {
 	var spens []types.Amount
 	rows, err := internal.ConnectDB().Query("SELECT * FROM amount;")
 	if err != nil {

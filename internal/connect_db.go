@@ -17,7 +17,7 @@ func ConnectDB() *sql.DB {
 		Passwd: os.Getenv("DBPASS"),
 		Net:    "tcp",
 		Addr:   "127.0.0.1:3306",
-		DBName: "budget",
+		DBName: "seats",
 	}
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())

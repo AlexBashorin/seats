@@ -11,6 +11,7 @@ import (
 func main() {
 	mux := mux.NewRouter()
 	mux.HandleFunc("/", webserver.Mainpage)
+	mux.HandleFunc("/setUser", webserver.SetUser)
 
 	log.Fatal(http.ListenAndServe(":93", mux))
 }
