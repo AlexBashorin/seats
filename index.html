@@ -1,0 +1,11 @@
+<button onclick="getData()">get</button>
+<p class="resu"></p>
+
+<script>
+    function getData() {
+        let res = document.querySelector(".resu")
+        fetch("http://localhost:93/")
+        .then(e => e.text())
+        .then(d => res.textContent = JSON.stringify(d))
+    }
+</script>
