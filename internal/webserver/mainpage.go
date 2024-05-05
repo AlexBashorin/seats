@@ -18,6 +18,7 @@ type User struct {
 
 func Mainpage(w http.ResponseWriter, r *http.Request) {
 	// setUser(user)
+	w.Write([]byte("test1"))
 }
 
 // set user
