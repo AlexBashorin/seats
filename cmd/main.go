@@ -13,5 +13,5 @@ func main() {
 	mux.HandleFunc("/", webserver.Mainpage)
 	mux.HandleFunc("/setUser", webserver.SetUser)
 
-	log.Fatal(http.ListenAndServe(":93", mux))
+	log.Fatal(http.ListenAndServe(":94", mux))
 }
