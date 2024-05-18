@@ -4,7 +4,7 @@
 <script>
     function getData() {
         let res = document.querySelector(".resu")
-        fetch("http://localhost:93/")
+        fetch("http://localhost:94/")
         .then(e => e.text())
         .then(d => res.textContent = JSON.stringify(d))
     }

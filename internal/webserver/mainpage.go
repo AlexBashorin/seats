@@ -2,12 +2,11 @@ package webserver
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"seats/internal"
-	"seats/internal/types"
+	// "seats/internal/types"
 )
 
 type User struct {
@@ -17,7 +16,6 @@ type User struct {
 }
 
 func Mainpage(w http.ResponseWriter, r *http.Request) {
-	// setUser(user)
 	w.Write([]byte("test1"))
 }
 
@@ -35,32 +33,11 @@ func SetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	db := internal.ConnectDB()
-	insertUser := "INSERT INTO users(id, name, compnay) VALUES(?, ?, ?)"
+	insertUser := "INSERT INTO users(id, name, company) VALUES(?, ?, ?)"
 	_, err = db.Exec(insertUser, user.Id, user.Name, user.Company)
 	if err != nil {
 		log.Fatal(err)
 	}
-}
 
-func setSeats() ([]types.Amount, error) {
-	var spens []types.Amount
-	rows, err := internal.ConnectDB().Query("SELECT * FROM amount;")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer rows.Close()
-
-	for rows.Next() {
-		var spe types.Amount
-		if err := rows.Scan(&spe.Date, &spe.Sum, &spe.Mov, &spe.Id); err != nil {
-			return nil, fmt.Errorf("Parse: Data not found")
-		}
-		spens = append(spens, spe)
-	}
-
-	if err := rows.Err(); err != nil {
-		return nil, fmt.Errorf("Data not found")
-	}
-
-	return spens, nil
+	w.Write([]byte("write: " + user.Name))
 }

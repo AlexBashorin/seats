@@ -13,11 +13,12 @@ var db *sql.DB
 
 func ConnectDB() *sql.DB {
 	cfg := mysql.Config{
-		User:   os.Getenv("DBUSER"),
-		Passwd: os.Getenv("DBPASS"),
-		Net:    "tcp",
-		Addr:   "127.0.0.1:3306",
-		DBName: "seats",
+		User:                 os.Getenv("DBUSER"),
+		Passwd:               os.Getenv("DBPASS"),
+		Net:                  "tcp",
+		Addr:                 "127.0.0.1:3306",
+		DBName:               "seats",
+		AllowNativePasswords: true,
 	}
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
